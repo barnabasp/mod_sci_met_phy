@@ -41,6 +41,7 @@ int main() {
     double test = newtonIt(func,df,x0,1e-7,1e-15);
     std::cout.precision(25);
     std::cout << test << std::endl;
-    std::cout << test - 24.738633753705963298928 << std::endl;
+    double diff = test - 24.738633753705963298928;
+    std::cout << diff << std::endl;
     return 0;
 }
