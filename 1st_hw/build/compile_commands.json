@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/Users/barnabasp/Documents/Code/mod_sci_met_phy/1st_hw/build",
+  "command": "/usr/bin/clang++    -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX11.1.sdk   -o CMakeFiles/main.dir/main.cpp.o -c /Users/barnabasp/Documents/Code/mod_sci_met_phy/1st_hw/main.cpp",
+  "file": "/Users/barnabasp/Documents/Code/mod_sci_met_phy/1st_hw/main.cpp"
+}
+]
