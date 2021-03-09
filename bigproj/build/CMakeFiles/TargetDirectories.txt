@@ -1,0 +1,3 @@
+/Users/barnabasp/Documents/Code/ELTE_MSc/Korszeru/TESZT/build/CMakeFiles/rebuild_cache.dir
+/Users/barnabasp/Documents/Code/ELTE_MSc/Korszeru/TESZT/build/CMakeFiles/edit_cache.dir
+/Users/barnabasp/Documents/Code/ELTE_MSc/Korszeru/TESZT/build/CMakeFiles/FILESYSTEM.dir

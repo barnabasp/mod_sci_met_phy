@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/Users/barnabasp/Documents/Code/ELTE_MSc/Korszeru/TESZT/build",
+  "command": "/usr/bin/clang++    -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX11.1.sdk   -std=gnu++1z -o CMakeFiles/FILESYSTEM.dir/main.cpp.o -c /Users/barnabasp/Documents/Code/ELTE_MSc/Korszeru/TESZT/main.cpp",
+  "file": "/Users/barnabasp/Documents/Code/ELTE_MSc/Korszeru/TESZT/main.cpp"
+}
+]

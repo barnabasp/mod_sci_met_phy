@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/barnabasp/Documents/Code/ELTE_MSc/Korszeru/TESZT/main.cpp
+fstream
+-
+iostream
+-
+filesystem
+-
+
