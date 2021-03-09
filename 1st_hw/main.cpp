@@ -16,7 +16,7 @@ X newtonIt(F f, D df, X x0, T tol, E eps)
     X x1 = x0 - f(x0)/df(x0);
     while(stopIterate(x1,x0,tol))
     {
-        //if derivative is too small, stop ()
+        //if derivative is too small, stop
         if(abs(df(x0)) < eps) break;
         x0 = x1;
         x1 = x0 - f(x0)/df(x0);
@@ -28,6 +28,8 @@ bool stopIterate(double x1, double x0, double tol)
 {
     return abs(x1-x0) > tol;
 }
+
+//some basic function from slides
 double func(double x)
 {
     return x*x - 612.0;
@@ -36,9 +38,14 @@ double df(double x)
 {
     return 2.0*x;
 }
-int main() {
+int main() 
+{
+    //initial value for func
     double x0 = 10.0;
+    //test case
     double test = newtonIt(func,df,x0,1e-7,1e-15);
+
+    //extra digits for easier compare
     std::cout.precision(25);
     std::cout << test << std::endl;
     double diff = test - 24.738633753705963298928;
