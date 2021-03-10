@@ -43,7 +43,7 @@ int main()
     //initial value for func
     double x0 = 10.0;
     //test case
-    double test = newtonIt(func,df,x0,1e-7,1e-15);
+    double test = newtonIt(func,df,x0,1e-10,1e-15);
 
     //extra digits for easier compare
     std::cout.precision(25);
