@@ -81,14 +81,9 @@ T dot(Vector2<T> const& a, Vector2<T> const& b)
     return (a.x * b.y + a.y * b.x);
 }
 template<typename T>
-double sqlength(Vector2<T> const& a)
-{
-    return dot(a, a);
-}
-template<typename T>
 double length(Vector2<T> const& a)
 {
-    return sqrt(sqlength(a,a));
+    return sqrt(a.x * a.x + a.y * a.y);
 }
 template<typename T>
 Vector2<double> normalize(Vector2<T> const& a)
