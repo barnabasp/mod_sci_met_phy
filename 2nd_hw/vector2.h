@@ -5,39 +5,44 @@ class Vector2
     public:
         Vector2();
         Vector2(T a, T b);
-        void setX(T newX);
-        void setY(T newY);
-        double dot(const Vector2<T>& a, const Vector2<T>& b);
-        double length(const Vector2<T>& a);
-        double sqlength(const Vector2<T>& a);
-        Vector2<T> norm(const Vector2<T>& a);
-
-        Vector2<T> operator-(Vector2<T>& a)
+        T x;
+        T y;
+        Vector2<T> operator+=( Vector2<T> const& a)
         {
-            return Vector2<T>(x - a.x, y - a.y);
-        };
-        Vector2<T> operator+(const Vector2<T>& a)
-        {
-            return Vector2<T>(x + a.x, y + a.y);
-        };
-        Vector2<T> operator/=(T a)
-        {
-            return Vector2<T>(x/a, y/a);
+            x += a.x;
+            y += a.y;
+            return *this;
         }
-        friend std::ostream& operator<<(std::ostream& stream, const Vector2<T>& a)
+        Vector2<T> operator-=(Vector2<T> const& a)
+        {
+            x -= a.x;
+            y -= a.y;
+            return *this;
+        }
+        Vector2<T> operator*=(T const& a)
+        {
+            x *= a;
+            y *= a;
+            return *this;
+        }
+        Vector2<T> operator/=(T const& a)
+        {
+            x /= a;
+            y /= a;
+            return *this;
+        }
+        friend std::ostream& operator<<(std::ostream& stream, Vector2<T> const& a)
         {
             stream << a.x << " " << a.y;
             return stream;
         };
-        friend std::istream& operator>>(std::istream& stream, const Vector2<T>& a)
+        friend std::istream& operator>>(std::istream& stream, Vector2<T> const& a)
         {
             stream >> a.x;
             stream >> a.y;
             return stream;
         }
      private:
-        T x;
-        T y;
 };
 template<typename T>
 Vector2<T>::Vector2(T a, T b)
@@ -46,32 +51,47 @@ Vector2<T>::Vector2(T a, T b)
     y = b;
 }
 template<typename T>
-void Vector2<T>::setX(T newX)
+Vector2<T> operator-(Vector2<T> const& a, Vector2<T> const& b)
 {
-    x = newX;
+    return Vector2<T>(a.x - b.x, a.y - b.y);
 }
 template<typename T>
-void Vector2<T>::setY(T newY)
+Vector2<T> operator+(Vector2<T> const& a, Vector2<T> const& b)
 {
-    y = newY;
+    return Vector2<T>(a.x + b.x, a.y + b.y);
 }
 template<typename T>
-double dot(const Vector2<T>& a, const Vector2<T>& b)
+Vector2<T> operator*(T const& c, Vector2<T> const& a)
 {
-    return a.x * b.y + a.y * b.x;
+    return Vector2<T>(c * a.x, c * a.y);
 }
 template<typename T>
-double length(const Vector2<T>& a)
+Vector2<T> operator*(Vector2<T> const& a, T const& c)
 {
-    return sqrt(a.x*a.x + a.y * a.y);
+    return Vector2<T>(c * a.x, c * a.y);
 }
 template<typename T>
-double sqlength(const Vector2<T>& a)
+Vector2<T> operator/(Vector2<T> const& a, T const& c)
 {
-    return a.x*a.x + a.y*a.y;
+    return Vector2<T>(a.x / c, a.y / c);
 }
 template<typename T>
-Vector2<T> normalize(const Vector2<T>& a)
+T dot(Vector2<T> const& a, Vector2<T> const& b)
 {
-    return a/Vector2<T>::length(a);
+    return (a.x * b.y + a.y * b.x);
+}
+template<typename T>
+double sqlength(Vector2<T> const& a)
+{
+    return dot(a, a);
+}
+template<typename T>
+double length(Vector2<T> const& a)
+{
+    return sqrt(sqlength(a,a));
+}
+template<typename T>
+Vector2<double> normalize(Vector2<T> const& a)
+{
+    return Vector2<double>(a.x / length(a), a.y / length(a));
 }
