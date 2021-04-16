@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cmath>
+#include <vector>
 
 double func(double x, int F, double q, int a, int h)
 {
@@ -13,8 +14,8 @@ double df(T f, double x, double dx, double F, double q, double a, double h)
     // S(h) = (4D(h) - D(2h))/3
     // S(2h) = (4D(2h) - D(4h))/3
     // D(h) = (f(x + h) - f(x - h))/2h
-    return (16 * ( 4 * (f(x + dx, F, q, a, h) - f(x - dx, F, q, a, h)) - (f(x + 2*dx, F, q, a, h) - f(x - 2*dx,F, q, a, h)))
-                - 1 * (4 * (f(x + 2*dx, F, q, a, h) - f(x - 2*dx,F, q, a, h)) - (f(x + 4*dx, F, q, a, h) - f(x - 4*dx,F, q, a, h))))/15 ;
+    return (16 * ( 4 * (f(x + dx, F, q, a, h) - f(x - dx, F, q, a, h))/(2*dx) - (f(x + 2*dx, F, q, a, h) - f(x - 2*dx,F, q, a, h))/(2*2*dx))/3
+                - 1 * (4 * (f(x + 2*dx, F, q, a, h) - f(x - 2*dx,F, q, a, h))/(2*2*dx) - (f(x + 4*dx, F, q, a, h) - f(x - 4*dx,F, q, a, h))/(2*2*2*dx))/3)/15;
 }
 
 int main()
@@ -27,6 +28,18 @@ int main()
     //Limits and n
     const double min = 0.0;
     const double max = 200.0;
-    const int n = 1000;
+    const int n = 10000;
+    double dx = max/n;
+
+    double M = 0.0;
+
+    for(int ibin = 0; ibin < n; ibin++)
+    {
+        double dfunc = df( func, dx/2 + ibin * dx, dx,F, q, a, h );
+        M += sqrt(1 + dfunc*dfunc);
+    }
+    
+    std::cout<< M <<std::endl;
+
     return 0;
 }
