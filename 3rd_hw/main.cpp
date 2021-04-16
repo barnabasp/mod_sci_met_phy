@@ -45,7 +45,7 @@ int main()
     {
         double dfunc = df( func, dx/2 + ibin * dx, dx,F, q, a, h );
         std::cout <<func(ibin, F, q, a, h) << std::endl;
-        M += sqrt(1 + dfunc*dfunc);
+        M += sqrt(1 + dfunc*dfunc)*dx;
     }
     
     std::cout<< M <<std::endl;
