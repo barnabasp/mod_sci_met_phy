@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cmath>
 #include <vector>
+#include <fstream>
 
 double func(double x, int F, double q, int a, int h)
 {
@@ -14,15 +15,7 @@ double df(T f, double x, double dx, double F, double q, double a, double h)
     // S(h) = (4D(h) - D(2h))/3
     // S(2h) = (4D(2h) - D(4h))/3
     // D(h) = (f(x + h) - f(x - h))/2h
-    return    /*(16 * 
-              ( 4 * 
-              ( f(x + dx, F, q, a, h) - f(x - dx, F, q, a, h) ) / (2*dx)
-            - ( f(x + 2*dx, F, q, a, h) - f(x - 2*dx,F, q, a, h) ) / (2*2*dx) ) / 3
-            - 1 * (4 * (f(x + 2*dx, F, q, a, h) - f(x - 2*dx,F, q, a, h)) / (2*2*dx)
-            - ( f(x + 4*dx, F, q, a, h) - f(x - 4*dx,F, q, a, h) ) / (2*2*2*dx)) / 3
-              )/15;*/
-
-              (16 * 8 * (f(x + dx, F, q, a, h) - f(x-dx, F, q, a, h) - f(x +2*dx, F, q, a, h) + f(x-2*dx, F, q, a, h))/ (12*dx)
+    return    (16 * 8 * (f(x + dx, F, q, a, h) - f(x-dx, F, q, a, h) - f(x +2*dx, F, q, a, h) + f(x-2*dx, F, q, a, h))/ (12*dx)
               - 8 * (f(x + 2*dx, F, q, a, h) - f(x-2*dx, F, q, a, h) - f(x +2*2*dx, F, q, a, h) + f(x-2*2*dx, F, q, a, h))/ (12*2 *dx)) / 15;
 }
 
@@ -40,15 +33,24 @@ int main()
     double dx = max/n;
 
     double M = 0.0;
+    double T = 0.0;
+    double S = 0.0;
 
     for(int ibin = 0; ibin < n; ibin++)
     {
-        double dfunc = df( func, dx/2 + ibin * dx, dx,F, q, a, h );
-        std::cout <<func(ibin, F, q, a, h) << std::endl;
-        M += sqrt(1 + dfunc*dfunc)*dx;
+        double dfuncMiddle = df( func, dx/2 + ibin * dx, dx,F, q, a, h );
+        double dfuncTrap0 =  df( func, ibin * dx, dx, F, q, a , h);
+        double dfuncTrap1 =  df( func, (ibin + 1) *dx, dx, F, q, a , h);
+        M += sqrt(1 + dfuncMiddle * dfuncMiddle)*dx;
+        T += ( sqrt(1 + dfuncTrap0 * dfuncTrap0) + sqrt(1 + dfuncTrap1 * dfuncTrap1)) * dx / 2;
     }
+    S = (2*M + T)/3;
     
-    std::cout<< M <<std::endl;
+    std::cout<< "M: " << M << "\tT: " << T << "\tS: " << S << std::endl;
+    std::ofstream outPut;
+    outPut.open("3rd_hw_res.csv");
+    outPut << M << "," << T << "," << S <<"\n";
+    outPut.close();
 
     return 0;
 }
