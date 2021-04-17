@@ -49,6 +49,7 @@ int main()
     std::cout<< "M: " << M << "\tT: " << T << "\tS: " << S << std::endl;
     std::ofstream outPut;
     outPut.open("3rd_hw_res.csv");
+    outPut << "#M,T,S\n";
     outPut << M << "," << T << "," << S <<"\n";
     outPut.close();
 
