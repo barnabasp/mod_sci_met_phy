@@ -57,14 +57,19 @@ int main()
     double y_0 = 0.0;
     
     std::vector< std::vector<double> > res;
+    std::ofstream outPut;
+
+    outPut.open("4th_hw_res.csv");
     res.resize(3, std::vector<double>(t1, 0));
     res[0] = Newton(f, dt, t1, y_0);
     res[1] = RK4(f, dt, t1, y_0);
     res[2] = Analytic(dt, t1, y_0);
+    outPut << "#Newton,RK4,Analytical\n";
     for(int i; i < t1; i++)
     {
-        std::cout << "Newton: "<<res[0][i] << "\tRK4: "<< res[1][i] << "\tAnal: " << res[2][i] << std::endl;
+        outPut<<res[0][i] << ","<< res[1][i] << "," << res[2][i] << std::endl;
     }
+    outPut.close();
 
     return 0;
 }
