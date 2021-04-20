@@ -16,7 +16,7 @@ std::vector<double> Newton(F f, double dt, int t1, double y_0)
     res[0] = y_0;
     for(int iTime = 1; iTime < t1; iTime++)
     {
-        res[iTime] = res[iTime - 1] - dt * f(res[iTime - 1]);
+        res[iTime] = res[iTime - 1] + dt * f(res[iTime - 1]);
     }
     return res;
 };
@@ -40,6 +40,16 @@ std::vector<double> RK4(F f, double dt, int t1, double y_0)
     }
     return res;
 }
+std::vector<double> Analytic(double dt, int t1, double y_0)
+{
+    std::vector<double> res(t1);
+    res[0] = y_0;
+    for(int iTime = 1; iTime < t1; iTime++)
+    {
+        res[iTime] = tan(iTime * dt);
+    }
+    return res;
+}
 int main()
 {
     double dt = 1e-4;
@@ -50,10 +60,11 @@ int main()
     res.resize(3, std::vector<double>(t1, 0));
     res[0] = Newton(f, dt, t1, y_0);
     res[1] = RK4(f, dt, t1, y_0);
-/*    for(int i; i < N; i++)
+    res[2] = Analytic(dt, t1, y_0);
+    for(int i; i < t1; i++)
     {
-        std::cout << res[0][i] << std::endl;
+        std::cout << "Newton: "<<res[0][i] << "\tRK4: "<< res[1][i] << "\tAnal: " << res[2][i] << std::endl;
     }
-*/
+
     return 0;
 }
