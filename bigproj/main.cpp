@@ -14,19 +14,7 @@ int main()
         std::cout << p.path() << '\n';
     fs::remove_all("sandbox");
     */
-    //fs::path currPath("/Users/barnabasp/Documents/Code/mod_sci_met_phy/bigproj/");
-    //temp::startup("/Users/barnabasp/Documents/Code/mod_sci_met_phy/bigproj/")
-    //system_search temp("/Users/barnabasp/Documents/Code/mod_sci_met_phy/bigproj/");
-    System_search a(1);
-    /*
-        std::cout << "root name  " << currPath.root_name() << std::endl;
-        std::cout << "root directory  " << currPath.root_directory() << std::endl;
-        std::cout << "root path  " << currPath.root_path() << std::endl;
-        std::cout << "relative path  " << currPath.relative_path() << std::endl;
-        std::cout << "parent path  " << currPath.parent_path() << std::endl;
-        std::cout << "filename  " << currPath.filename() << std::endl;
-        std::cout << "stem  " << currPath.stem() << std::endl;
-        std::cout << "extension  " << currPath.extension() << std::endl;
-    */
+    System_search temp("/Users/barnabasp/Documents/Code/mod_sci_met_phy/bigproj/");
+    temp.startup();
 }
 //space visibility
