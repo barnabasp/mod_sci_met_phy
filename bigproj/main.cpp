@@ -6,7 +6,9 @@
 
 int main()
 {
-    System_search temp("/Users/barnabasp/Documents/Code/mod_sci_met_phy/bigproj/");
+    //System_search temp("/Users/barnabasp/Documents/Code/mod_sci_met_phy/bigproj/");
+    System_search temp("/Users/barnabasp/Documents/Code/Website");
     //temp.startup();
     temp.explore();
+    temp.checkR();
 }

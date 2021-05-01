@@ -11,26 +11,31 @@ class System_search
 {
 private:
     //private variables 
-    std::string _pathing;
+    std::string m_pathing;
     //containers for file properties
-    std::vector<fs::path> _files;
-    std::vector<int> _fileSizes;
+    std::vector<fs::path> m_files;
+    std::vector<int> m_fileSizes;
     
     //containers for folder properties
-    std::vector<fs::path> _folders;
-    std::vector<int> _folderSizes;
-    std::vector<int> _folderContent;
+    std::vector<fs::path> m_folders;
+    std::vector<int> m_folderSizes;
+    std::vector<int> m_folderContent;
 public:
     //constructors
     System_search() = default;
     System_search(std::string strPath)
     {
-        _pathing = strPath;
+        m_pathing = strPath;
+
+        //initialize folders
+        m_folders.push_back(fs::path(m_pathing)); //since the starting directory is not the first
+        m_folderSizes.push_back(0); //need to have consistent size of vectors
+        m_folderContent.push_back(0);
     };
     //simple function to check the filesystem
     void startup()
     {
-        fs::path currPath(_pathing);
+        fs::path currPath(m_pathing);
         std::cout << "root name  " << currPath.root_name() << std::endl;
         std::cout << "root directory  " << currPath.root_directory() << std::endl;
         std::cout << "root path  " << currPath.root_path() << std::endl;
@@ -41,30 +46,8 @@ public:
         std::cout << "extension  " << currPath.extension() << std::endl;
     }
     //main function that gathers information on the folders and files
-    void explore()
-    {
-        //looping through the paths
-        for(auto& p: fs::recursive_directory_iterator(_pathing))
-        {
-            //std::cout << p.path() << '\n';
-            //std::cout << fs::is_directory(p) << '\n';
-            //check if path is a directory
-            if(fs::is_directory(p))
-            {
-                if(fs::is_empty(p)) _folderContent.push_back(0);
-                std::cout << p.path() << '\n';
-                continue;
-            }
-            //if path is not a directory
-            else
-            {
-                //std::cout << fs::file_size(p) << '\n';
-                _files.push_back(p.path());
-                _fileSizes.push_back(fs::file_size(p.path()));
-                //count the files in this folder then go deeper-> add to content of folder
-            }
-        }
-    }
+    void explore();
+    void checkR();
 };
 
 #endif
