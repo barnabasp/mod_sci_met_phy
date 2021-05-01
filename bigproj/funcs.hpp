@@ -61,6 +61,16 @@ public:
     //main function that gathers information on the folders and files
     void explore();
     void checkR();
+    //TODO Functions
+    void biggestFile();
+    void biggestFolder();
+
+    void filesPerDirectory();
+
+    void averageFileSize();
+    void averageFolderSize();
+
+    void distributionOfExtensions();
 };
 
 #endif
