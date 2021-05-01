@@ -10,27 +10,40 @@ namespace fs = std::filesystem;
 class System_search
 {
 private:
+    struct stFiles
+    {
+        fs::path path;
+        int size;
+        std::string extension;
+    };
+    struct stFolders
+    {
+        fs::path path;
+        int size;
+        int content;
+    };
+    
+    
     //private variables 
     std::string m_pathing;
     //containers for file properties
-    std::vector<fs::path> m_files;
-    std::vector<int> m_fileSizes;
+    std::vector<stFiles> m_structFiles;
     
     //containers for folder properties
-    std::vector<fs::path> m_folders;
-    std::vector<int> m_folderSizes;
-    std::vector<int> m_folderContent;
+    std::vector<stFolders> m_structFolders;
 public:
     //constructors
     System_search() = default;
     System_search(std::string strPath)
     {
         m_pathing = strPath;
+        stFolders temp;
+        temp.size = 0;
+        temp.path = fs::path(strPath);
+        temp.content = 0;
+        m_structFolders.push_back(temp);
 
-        //initialize folders
-        m_folders.push_back(fs::path(m_pathing)); //since the starting directory is not the first
-        m_folderSizes.push_back(0); //need to have consistent size of vectors
-        m_folderContent.push_back(0);
+
     };
     //simple function to check the filesystem
     void startup()
