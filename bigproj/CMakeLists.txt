@@ -4,7 +4,7 @@ project(FileSysChecker LANGUAGES CXX)
 
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/Modules)
 
-set(Sources main.cpp)
+set(Sources main.cpp funcs.cpp)
 
 add_executable(${PROJECT_NAME} ${Sources})
 
