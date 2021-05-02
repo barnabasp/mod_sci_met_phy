@@ -81,10 +81,11 @@ void System_search::explore()
 //look for biggest file in the collected folders
 void System_search::biggestFile()
 {
-    std::sort(m_structFiles.begin(), m_structFiles.end(), []( const stFiles &a_file, const stFiles &b_file )
+    std::vector<stFiles> tempFiles = m_structFiles;
+    std::sort(tempFiles.begin(), tempFiles.end(), []( const stFiles &a_file, const stFiles &b_file )
                  { return ( a_file.size < b_file.size ); } );
-    std::vector<stFiles>::iterator it_f = m_structFiles.end() - 1;
-    for(; it_f != m_structFiles.end(); it_f++)
+    std::vector<stFiles>::iterator it_f = tempFiles.end() - 1;
+    for(; it_f != tempFiles.end(); it_f++)
     {
         std::cout << "size: " << it_f->size << "\t name: " << it_f->path << "\n";
     }
@@ -92,13 +93,28 @@ void System_search::biggestFile()
 //look for biggest folder in the collected folders
 void System_search::biggestFolder()
 {
-    std::sort(m_structFolders.begin(), m_structFolders.end(), []( const stFolders &a_folder, const stFolders &b_folder )
+    std::vector<stFolders> tempFolders = m_structFolders;
+    std::sort(tempFolders.begin(), tempFolders.end(), []( const stFolders &a_folder, const stFolders &b_folder )
                  { return ( a_folder.size < b_folder.size ); } );
-    std::vector<stFolders>::iterator it_f = m_structFolders.end() - 1;
-    for(; it_f != m_structFolders.end(); it_f++)
+    std::vector<stFolders>::iterator it_f = tempFolders.end() - 1;
+    for(; it_f != tempFolders.end(); it_f++)
     {
         std::cout << "size: " << it_f->size << "\t name: " << it_f->path << "\t stuff:" << it_f->content << "\n";
     }
+}
+//Counts the sum of files per directory, then calculates the mean file content
+void System_search::avgFilesPerDirectory()
+{
+    std::vector<int> contents; //holder for contents of files
+    //looping through the folders and extracting the contents
+    for(std::vector<stFolders>::iterator it_f = m_structFolders.begin(); it_f != m_structFolders.end(); it_f++)
+    {
+        contents.push_back(it_f->content);
+    }
+    //sum and mean calculation
+    double sum = std::accumulate(contents.begin(), contents.end(), 0.0);
+    double mean = sum/contents.size();
+    std::cout << "Total files in folders: " << sum << "\t mean content per folder: " << mean << "\n";
 }
 void System_search::checkR()
 {

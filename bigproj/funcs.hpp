@@ -5,7 +5,8 @@
 #include <iostream>
 #include <filesystem>
 #include <vector>
-#include <algorithm>
+#include <algorithm> //for std::sort
+#include <numeric> //for std::accumulate
 namespace fs = std::filesystem;
 
 class System_search
@@ -64,7 +65,7 @@ public:
     void biggestFolder();
 
     //TODO Functions
-    void filesPerDirectory();
+    void avgFilesPerDirectory();
 
     void averageFileSize();
     void averageFolderSize();
