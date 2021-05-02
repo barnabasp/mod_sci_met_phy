@@ -1,4 +1,5 @@
 #include "funcs.hpp"
+//+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-Class functions+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
 
 //Collect data from the given directory. This goes recursively into all folders and checks all files' path, size and name
 //then logs them into a private class variable to hold for further functions.
@@ -76,6 +77,28 @@ void System_search::explore()
         m_structFolders.push_back(folders);
     }
     m_structFolders.pop_back();
+}
+//look for biggest file in the collected folders
+void System_search::biggestFile()
+{
+    std::sort(m_structFiles.begin(), m_structFiles.end(), []( const stFiles &a_file, const stFiles &b_file )
+                 { return ( a_file.size < b_file.size ); } );
+    std::vector<stFiles>::iterator it_f = m_structFiles.end() - 1;
+    for(; it_f != m_structFiles.end(); it_f++)
+    {
+        std::cout << "size: " << it_f->size << "\t name: " << it_f->path << "\n";
+    }
+}
+//look for biggest folder in the collected folders
+void System_search::biggestFolder()
+{
+    std::sort(m_structFolders.begin(), m_structFolders.end(), []( const stFolders &a_folder, const stFolders &b_folder )
+                 { return ( a_folder.size < b_folder.size ); } );
+    std::vector<stFolders>::iterator it_f = m_structFolders.end() - 1;
+    for(; it_f != m_structFolders.end(); it_f++)
+    {
+        std::cout << "size: " << it_f->size << "\t name: " << it_f->path << "\t stuff:" << it_f->content << "\n";
+    }
 }
 void System_search::checkR()
 {

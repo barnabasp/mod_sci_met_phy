@@ -10,5 +10,6 @@ int main()
     System_search temp("/Users/barnabasp/Documents/Code/Website");
     //temp.startup();
     temp.explore();
-    temp.checkR();
+    temp.biggestFile();
+    //temp.checkR();
 }

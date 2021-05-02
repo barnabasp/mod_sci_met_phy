@@ -5,6 +5,7 @@
 #include <iostream>
 #include <filesystem>
 #include <vector>
+#include <algorithm>
 namespace fs = std::filesystem;
 
 class System_search
@@ -42,8 +43,6 @@ public:
         temp.path = fs::path(strPath);
         temp.content = 0;
         m_structFolders.push_back(temp);
-
-
     };
     //simple function to check the filesystem
     void startup()
@@ -61,10 +60,10 @@ public:
     //main function that gathers information on the folders and files
     void explore();
     void checkR();
-    //TODO Functions
     void biggestFile();
     void biggestFolder();
 
+    //TODO Functions
     void filesPerDirectory();
 
     void averageFileSize();
