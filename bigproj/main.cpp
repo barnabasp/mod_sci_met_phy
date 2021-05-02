@@ -11,7 +11,10 @@ int main()
     //temp.startup();
     temp.explore();
     temp.avgFilesPerDirectory();
-    //temp.biggestFile();
-    //temp.biggestFolder();
+    temp.biggestFile();
+    temp.biggestFolder();
+    temp.avgFileSize();
+    temp.avgFolderSize();
+    temp.distributionOfExtensions();
     //temp.checkR();
 }

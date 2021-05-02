@@ -16,13 +16,6 @@ void System_search::explore()
     tmp_folders.push_back(fs::path(m_pathing)); //since the starting directory is not the first
     tmp_folderSizes.push_back(0); //need to have consistent size of vectors
     tmp_folderContent.push_back(0);
-    //have to do it again because of struct
-    /*
-    folders.path = fs::path(m_pathing);
-    folders.size = 0;
-    folders.content = 0;
-    m_structFolders.push_back(folders);
-    */
     //looping through the paths
     for (auto &p : fs::recursive_directory_iterator(m_pathing))
     {
@@ -85,9 +78,10 @@ void System_search::biggestFile()
     std::sort(tempFiles.begin(), tempFiles.end(), []( const stFiles &a_file, const stFiles &b_file )
                  { return ( a_file.size < b_file.size ); } );
     std::vector<stFiles>::iterator it_f = tempFiles.end() - 1;
+    std::cout << "The biggest file has the following attributes: \n";
     for(; it_f != tempFiles.end(); it_f++)
     {
-        std::cout << "size: " << it_f->size << "\t name: " << it_f->path << "\n";
+        std::cout << "Size: " << it_f->size << " bytes\t Path-to-file: " << it_f->path << "\n";
     }
 }
 //look for biggest folder in the collected folders
@@ -97,9 +91,10 @@ void System_search::biggestFolder()
     std::sort(tempFolders.begin(), tempFolders.end(), []( const stFolders &a_folder, const stFolders &b_folder )
                  { return ( a_folder.size < b_folder.size ); } );
     std::vector<stFolders>::iterator it_f = tempFolders.end() - 1;
+    std::cout << "The biggest folder has the following attributes: \n";
     for(; it_f != tempFolders.end(); it_f++)
     {
-        std::cout << "size: " << it_f->size << "\t name: " << it_f->path << "\t stuff:" << it_f->content << "\n";
+        std::cout << "Size: " << it_f->size << " bytes\t Path-to-folder: " << it_f->path << "\t Content in folder: " << it_f->content << "\n";
     }
 }
 //Counts the sum of files per directory, then calculates the mean file content
@@ -116,14 +111,68 @@ void System_search::avgFilesPerDirectory()
     double mean = sum/contents.size();
     std::cout << "Total files in folders: " << sum << "\t mean content per folder: " << mean << "\n";
 }
+//Simple mean calculation for file sizes
+void System_search::avgFileSize()
+{
+    std::vector<int> sizes; //holder for size of files
+    //looping through the files and extracting the size attribute
+    for(std::vector<stFiles>::iterator it_f = m_structFiles.begin(); it_f != m_structFiles.end(); it_f++)
+    {
+        sizes.push_back(it_f->size);
+    }
+
+    //sum and mean calculation
+    double sum = std::accumulate(sizes.begin(), sizes.end(), 0.0);
+    double mean = sum/sizes.size();
+    std::cout << "Mean size of files: " << mean << " bytes\n";
+
+}
+//Simple mean calculation for folder sizes
+void System_search::avgFolderSize()
+{
+    std::vector<int> sizes; //holder for size of folders
+    //looping through the folders and extracting the contents
+    for(std::vector<stFolders>::iterator it_f = m_structFolders.begin(); it_f != m_structFolders.end(); it_f++)
+    {
+        sizes.push_back(it_f->size);
+    }
+
+    //sum and mean calculation
+    double sum = std::accumulate(sizes.begin(), sizes.end(), 0.0);
+    double mean = sum/sizes.size();
+    std::cout << "Mean size of folders: " << mean << " bytes\n";
+
+}
+//creates a non-normalized distribution of file extensions
+void System_search::distributionOfExtensions()
+{
+    std::map<std::string, int> fileExtensions; //map to store the number of extensions
+    std::map<std::string, int>::iterator it; //iterator to find if the map contains already an extension
+    for(std::vector<stFiles>::iterator it_f = m_structFiles.begin(); it_f != m_structFiles.end(); it_f++)
+    {
+        it = fileExtensions.find(it_f->extension); //find the current extension
+        if (it != fileExtensions.end())
+        {
+            it->second += 1; //if found, increase its multiplicity by one
+        }
+        else
+            fileExtensions.insert(std::pair<std::string, int>(it_f->extension, 1)); //just add to the map
+    }
+    std::cout << "The filesystem contains:";
+    for (auto& x: fileExtensions)
+        std::cout << " [\"" << x.first << "\": " << x.second << "]";
+    std::cout << '\n';
+
+}
+//Prints out all the files and folders from the folder in the input
 void System_search::checkR()
 {
     for(std::vector<stFiles>::iterator it_f = m_structFiles.begin(); it_f != m_structFiles.end(); it_f++)
     {
-        std::cout << "size: " << it_f->size << "\t name: " << it_f->path << "\n";
+        std::cout << "Size: " << it_f->size << " bytes\t Path-to-file: " << it_f->path << "\n";
     }
     for(std::vector<stFolders>::iterator it_f = m_structFolders.begin(); it_f != m_structFolders.end(); it_f++)
     {
-        std::cout << "size: " << it_f->size << "\t name: " << it_f->path << "\t stuff:" << it_f->content << "\n";
+        std::cout << "Size: " << it_f->size << " bytes\t Path-to-folder: " << it_f->path << "\t Content in folder: " << it_f->content << "\n";
     }
 }

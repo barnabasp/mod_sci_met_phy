@@ -2,11 +2,12 @@
 #define funcs_hpp
 
 #include <fstream>
-#include <iostream>
-#include <filesystem>
-#include <vector>
+#include <iostream> 
+#include <filesystem> //for the exercise itself, C++ 17 REQUIRED
+#include <vector> //for storing data of the filesystem
 #include <algorithm> //for std::sort
 #include <numeric> //for std::accumulate
+#include <map> //for distributions
 namespace fs = std::filesystem;
 
 class System_search
@@ -39,6 +40,8 @@ public:
     System_search(std::string strPath)
     {
         m_pathing = strPath;
+
+        //initialize the folder container with the starting directory
         stFolders temp;
         temp.size = 0;
         temp.path = fs::path(strPath);
@@ -63,13 +66,9 @@ public:
     void checkR();
     void biggestFile();
     void biggestFolder();
-
-    //TODO Functions
     void avgFilesPerDirectory();
-
-    void averageFileSize();
-    void averageFolderSize();
-
+    void avgFileSize();
+    void avgFolderSize();
     void distributionOfExtensions();
 };
 
