@@ -1,6 +1,6 @@
 #include "funcs.hpp"
 
-//function to collect path and folders for use
+//function to collect path and folders for use from user
 std::string pathInput()
 {
     std::string path;
@@ -12,11 +12,11 @@ std::string pathInput()
         std::cout << "Enter a path like /User/YOURNAME/Documents\n";
         path = "";
     };
-    fs::path tempo(path);
+    fs::path tempo(path); //value to pass
     if(!fs::exists(tempo))
     {
         std::cerr << "Please enter an existing path. Exiting...\n";
-        exit(EXIT_FAILURE);
+        exit(EXIT_FAILURE); //exit the program to not run into any further problems
     }
     return tempo;
 
@@ -28,9 +28,11 @@ std::string pathInput()
 //then logs them into a private class variable to hold for further functions.
 void System_search::explore()
 {
+    //container for each file and folder, push_back when on new path
     stFolders folders;
     stFiles files;
-
+    
+    //temporary containers for folder attributes
     std::vector<fs::path> tmp_folders;
     std::vector<int> tmp_folderSizes;
     std::vector<int> tmp_folderContent;
