@@ -91,6 +91,7 @@ void System_search::explore()
         m_structFolders[iFolder].path = tmp_folders[iFolder];
         m_structFolders.push_back(folders);
     }
+    //need to erease the last element as it'd be doubled
     m_structFolders.pop_back();
 }
 //look for biggest file in the collected folders
