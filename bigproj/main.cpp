@@ -7,7 +7,9 @@
 int main()
 {
     //System_search temp("/Users/barnabasp/Documents/Code/mod_sci_met_phy/bigproj/");
-    System_search temp("/Users/barnabasp/Documents/Code/Website");
+    std::string path = pathInput();
+    System_search temp(path);
+    std::cout << "The program will now collect data and will show results...\n";
     //temp.startup();
     temp.explore();
     temp.avgFilesPerDirectory();

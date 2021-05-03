@@ -1,4 +1,27 @@
 #include "funcs.hpp"
+
+//function to collect path and folders for use
+std::string pathInput()
+{
+    std::string path;
+    std::cout << "Please give me a path so I can search the library: ";
+    std::cin >> path;
+
+    if(path == "?") 
+    {
+        std::cout << "Enter a path like /User/YOURNAME/Documents";
+        path = "";
+    };
+    fs::path tempo(path);
+    if(!fs::exists(tempo))
+    {
+        std::cerr << "Please enter an existing path. Exiting...";
+        exit(EXIT_FAILURE);
+    }
+    return tempo;
+
+}
+
 //+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-Class functions+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
 
 //Collect data from the given directory. This goes recursively into all folders and checks all files' path, size and name
@@ -53,10 +76,7 @@ void System_search::explore()
 
             tmp_folderContent[depthCount] += 1; //the amount of files in the current folder is increased by 1
             folders.content +=1;
-            for(int iDepth = 0; iDepth <= depthCount; iDepth++) //add the sizes to all folders enclosing the current folder + to the current folder
-            {
-                tmp_folderSizes[iDepth] += files.size;
-            }
+            tmp_folderSizes[depthCount] += files.size;
             m_structFiles.push_back(files);
         }
     }
@@ -158,10 +178,12 @@ void System_search::distributionOfExtensions()
         else
             fileExtensions.insert(std::pair<std::string, int>(it_f->extension, 1)); //just add to the map
     }
-    std::cout << "The filesystem contains:";
+    std::cout << "The filesystem contains:\n";
     for (auto& x: fileExtensions)
+    {
         std::cout << " [\"" << x.first << "\": " << x.second << "]";
-    std::cout << '\n';
+        std::cout << '\n';
+    }
 
 }
 //Prints out all the files and folders from the folder in the input

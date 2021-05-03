@@ -1,5 +1,5 @@
-#ifndef funcs_hpp
-#define funcs_hpp
+#ifndef FUNCS_HPP
+#define FUNCS_HPP
 
 #include <fstream>
 #include <iostream> 
@@ -9,7 +9,7 @@
 #include <numeric> //for std::accumulate
 #include <map> //for distributions
 namespace fs = std::filesystem;
-
+std::string pathInput();
 class System_search
 {
 private:
@@ -72,4 +72,4 @@ public:
     void distributionOfExtensions();
 };
 
-#endif
+#endif /*FUNCS_HPP*/
