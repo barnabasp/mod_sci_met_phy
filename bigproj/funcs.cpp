@@ -34,8 +34,8 @@ void System_search::explore()
     
     //temporary containers for folder attributes
     std::vector<fs::path> tmp_folders;
-    std::vector<int> tmp_folderSizes;
-    std::vector<int> tmp_folderContent;
+    std::vector<long> tmp_folderSizes;
+    std::vector<long> tmp_folderContent;
 
     //initialize folders
     tmp_folders.push_back(fs::path(m_pathing)); //since the starting directory is not the first
@@ -137,7 +137,7 @@ void System_search::avgFilesPerDirectory()
 //Simple mean calculation for file sizes
 void System_search::avgFileSize()
 {
-    std::vector<int> sizes; //holder for size of files
+    std::vector<long> sizes; //holder for size of files
     //looping through the files and extracting the size attribute
     for(std::vector<stFiles>::iterator it_f = m_structFiles.begin(); it_f != m_structFiles.end(); it_f++)
     {
@@ -153,7 +153,7 @@ void System_search::avgFileSize()
 //Simple mean calculation for folder sizes
 void System_search::avgFolderSize()
 {
-    std::vector<int> sizes; //holder for size of folders
+    std::vector<long> sizes; //holder for size of folders
     //looping through the folders and extracting the contents
     for(std::vector<stFolders>::iterator it_f = m_structFolders.begin(); it_f != m_structFolders.end(); it_f++)
     {

@@ -16,13 +16,13 @@ private:
     struct stFiles
     {
         fs::path path;
-        int size;
+        long size;
         std::string extension;
     };
     struct stFolders
     {
         fs::path path;
-        int size;
+        long size;
         int content;
     };
     
