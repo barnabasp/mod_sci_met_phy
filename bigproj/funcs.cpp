@@ -9,13 +9,13 @@ std::string pathInput()
 
     if(path == "?") 
     {
-        std::cout << "Enter a path like /User/YOURNAME/Documents";
+        std::cout << "Enter a path like /User/YOURNAME/Documents\n";
         path = "";
     };
     fs::path tempo(path);
     if(!fs::exists(tempo))
     {
-        std::cerr << "Please enter an existing path. Exiting...";
+        std::cerr << "Please enter an existing path. Exiting...\n";
         exit(EXIT_FAILURE);
     }
     return tempo;
